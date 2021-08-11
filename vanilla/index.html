@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo app</title>
-</head>
-<body>
-    <form id="form">
-        <input id="input" name="todo" type="text">
-        <button type="submit">Add todo</button>
-    </form>
 
-    <ul id="list"></ul>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo app</title>
+</head>
+
+<body>
+  <form id="form">
+    <input id="input" name="todo" type="text">
+    <button type="submit">Add todo</button>
+  </form>
+
+  <ul id="list"></ul>
 </body>
 
 <script>
-    const input = document.getElementById('input');
-    const form = document.getElementById('form');
-    const list = document.getElementById('list');
+  const input = document.getElementById('input');
+  const form = document.getElementById('form');
+  const list = document.getElementById('list');
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentTodos = localStorage.todos ? JSON.parse(localStorage.todos) : [];
-        for (todo of currentTodos) {
-            const li = document.createElement('li');
-            li.innerText = todo;
-            list.append(li);
-        }
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentTodos = localStorage.todos ? JSON.parse(localStorage.todos) : [];
+    for (todo of currentTodos) {
+      const li = document.createElement('li');
+      li.innerText = todo;
+      list.append(li);
+    }
+  });
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const currentTodos = localStorage.todos ? JSON.parse(localStorage.todos) : [];
-        localStorage.todos = JSON.stringify([...currentTodos, input.value]);
-        
-        list.innerHTML = '';
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const currentTodos = localStorage.todos ? JSON.parse(localStorage.todos) : [];
+    localStorage.todos = JSON.stringify([...currentTodos, input.value]);
 
-        for (todo of JSON.parse(localStorage.todos)) {
-            const li = document.createElement('li');
-            li.innerText = todo;
-            list.append(li);
-        }
-    });
+    list.innerHTML = '';
+
+    for (todo of JSON.parse(localStorage.todos)) {
+      const li = document.createElement('li');
+      li.innerText = todo;
+      list.append(li);
+    }
+  });
 </script>
+
 </html>

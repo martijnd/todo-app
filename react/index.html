@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title>React</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    'use strict';
+
+    const e = React.createElement;
+
+    class LikeButton extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { todos: [], todo: '' };
+      }
+
+      componentDidMount() {
+        this.setState({
+          todos: localStorage.todos ? JSON.parse(localStorage.todos) : []
+        });
+      }
+
+      handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({
+          todos: [...this.state.todos, this.state.todo],
+          todo: ''
+        })
+        localStorage.todos = JSON.stringify([...this.state.todos, this.state.todo]);
+      }
+
+      render() {
+
+        return (
+          <div>
+            <form onSubmit={this.handleSubmit}>
+              <input value={this.state.todo} onChange={e => this.setState({ todo: e.target.value })} />
+              <button type="submit">Add todo</button>
+              <ul>
+                {this.state.todos.map(todo => (
+                  <li key={todo}>{todo}</li>
+                ))}
+              </ul>
+            </form>
+          </div>
+        )
+      }
+    }
+    const domContainer = document.querySelector('#app');
+    ReactDOM.render(e(LikeButton), domContainer);
+  </script>
+</body>
+
+</html>
